@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/calificacion-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/menu-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/reserva-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/restaurante-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/usuario-ms/src/main/java" charset="UTF-8" />
+  </component>
+</project>
