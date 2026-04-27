@@ -11,10 +11,10 @@ public class UsuarioRequestDTO {
     private String nombre;
 
     @NotBlank(message = "El email es obligatorio")
-    @Email(message = "El email debe ser válido")
+    @Email(message = "El email debe ser valido")
     private String email;
 
-    @Size(max = 20, message = "El teléfono no puede tener más de 20 caracteres")
+    @Size(max = 20, message = "El telefono no puede tener mas de 20 caracteres")
     private String telefono;
 
     private String direccion;
@@ -22,7 +22,7 @@ public class UsuarioRequestDTO {
     @NotBlank(message = "El rol es obligatorio")
     private String rol;  // CLIENTE, REPARTIDOR, ADMIN
 
-    // Getters y Setters
+    // Get y Set
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
