@@ -1,12 +1,17 @@
 package com.CodeChefs.reserva_ms.service;
 
+import com.CodeChefs.reserva_ms.clients.RestauranteFeignClient;
+import com.CodeChefs.reserva_ms.clients.UsuarioFeignClient;
 import com.CodeChefs.reserva_ms.dto.ReservaRequestDTO;
 import com.CodeChefs.reserva_ms.dto.ReservaResponseDTO;
 import com.CodeChefs.reserva_ms.model.Reserva;
 import com.CodeChefs.reserva_ms.repository.ReservaRepository;
+import feign.FeignException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,9 +21,15 @@ public class ReservaService {
 
     private static final Logger log = LoggerFactory.getLogger(ReservaService.class);
     private final ReservaRepository reservaRepository;
+    private final UsuarioFeignClient usuarioFeignClient;
+    private final RestauranteFeignClient restauranteFeignClient;
 
-    public ReservaService(ReservaRepository reservaRepository) {
+    public ReservaService(ReservaRepository reservaRepository,
+                          UsuarioFeignClient usuarioFeignClient,
+                          RestauranteFeignClient restauranteFeignClient) {
         this.reservaRepository = reservaRepository;
+        this.usuarioFeignClient = usuarioFeignClient;
+        this.restauranteFeignClient = restauranteFeignClient;
     }
 
     // Convertir entidad a ResponseDTO
@@ -36,6 +47,30 @@ public class ReservaService {
         );
     }
 
+    // Validar que el usuario existe
+    private boolean usuarioExiste(int usuarioId) {
+        try {
+            UsuarioFeignClient.UsuarioResponse usuario = usuarioFeignClient.getUsuarioById(usuarioId);
+            return usuario != null && usuario.isActivo();
+        } catch (FeignException e) {
+            log.error("Error al validar usuario {}: {}", usuarioId, e.getMessage());
+            return false;
+        }
+    }
+
+    // Validar que el restaurante existe
+    private boolean restauranteExiste(int restauranteId) {
+        try {
+            RestauranteFeignClient.RestauranteResponse restaurante = restauranteFeignClient.getRestauranteById(restauranteId);
+            return restaurante != null && restaurante.isActivo();
+        } catch (FeignException e) {
+            log.error("Error al validar restaurante {}: {}", restauranteId, e.getMessage());
+            return false;
+        }
+    }
+
+    // ============ CRUD PRINCIPAL ============
+
     public List<ReservaResponseDTO> listarReservas() {
         log.info("Listando todas las reservas");
         return reservaRepository.findAll()
@@ -52,6 +87,18 @@ public class ReservaService {
 
     public ReservaResponseDTO crearReserva(ReservaRequestDTO dto) {
         log.info("Creando nueva reserva para restaurante {} y usuario {}", dto.getRestauranteId(), dto.getUsuarioId());
+
+        // Validar que el usuario existe
+        if (!usuarioExiste(dto.getUsuarioId())) {
+            log.warn("Usuario {} no existe o está inactivo", dto.getUsuarioId());
+            throw new RuntimeException("Usuario no existe o está inactivo");
+        }
+
+        // Validar que el restaurante existe
+        if (!restauranteExiste(dto.getRestauranteId())) {
+            log.warn("Restaurante {} no existe o está inactivo", dto.getRestauranteId());
+            throw new RuntimeException("Restaurante no existe o está inactivo");
+        }
 
         Reserva reserva = new Reserva();
         reserva.setRestauranteId(dto.getRestauranteId());
@@ -111,7 +158,8 @@ public class ReservaService {
         return false;
     }
 
-    // Consultas derivadas
+    // ============ CONSULTAS DERIVADAS ============
+
     public List<ReservaResponseDTO> buscarPorRestaurante(int restauranteId) {
         return reservaRepository.findByRestauranteId(restauranteId)
                 .stream()
@@ -135,6 +183,20 @@ public class ReservaService {
 
     public List<ReservaResponseDTO> buscarReservasActivasDeUsuario(int usuarioId) {
         return reservaRepository.findByUsuarioIdAndActivoTrue(usuarioId)
+                .stream()
+                .map(this::convertirAResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ReservaResponseDTO> buscarPorFecha(LocalDate fecha) {
+        return reservaRepository.findByFecha(fecha)
+                .stream()
+                .map(this::convertirAResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ReservaResponseDTO> buscarPorRestauranteYFecha(int restauranteId, LocalDate fecha) {
+        return reservaRepository.findByRestauranteIdAndFecha(restauranteId, fecha)
                 .stream()
                 .map(this::convertirAResponseDTO)
                 .collect(Collectors.toList());

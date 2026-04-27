@@ -35,19 +35,29 @@ public class ReservaController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservaResponseDTO> crearReserva(@Valid @RequestBody ReservaRequestDTO dto) {
-        ReservaResponseDTO nueva = reservaService.crearReserva(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
+    public ResponseEntity<?> crearReserva(@Valid @RequestBody ReservaRequestDTO dto) {
+        try {
+            ReservaResponseDTO nueva = reservaService.crearReserva(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarReserva(@PathVariable int id, @Valid @RequestBody ReservaRequestDTO dto) {
-        ReservaResponseDTO actualizada = reservaService.actualizarReserva(id, dto);
-        if (actualizada == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Reserva no encontrada con id: " + id);
+        try {
+            ReservaResponseDTO actualizada = reservaService.actualizarReserva(id, dto);
+            if (actualizada == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Reserva no encontrada con id: " + id);
+            }
+            return ResponseEntity.ok(actualizada);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
-        return ResponseEntity.ok(actualizada);
     }
 
     @PatchMapping("/{id}/estado")
