@@ -11,6 +11,7 @@
         <module name="restaurante-ms (2)" />
         <module name="restaurante-ms (1)" />
         <module name="restaurante-ms" />
+        <module name="restaurante-ms (5)" />
       </profile>
     </annotationProcessing>
   </component>
@@ -21,6 +22,7 @@
       <module name="restaurante-ms (2)" options="-parameters" />
       <module name="restaurante-ms (3)" options="-parameters" />
       <module name="restaurante-ms (4)" options="-parameters" />
+      <module name="restaurante-ms (5)" options="-parameters" />
     </option>
   </component>
 </project>

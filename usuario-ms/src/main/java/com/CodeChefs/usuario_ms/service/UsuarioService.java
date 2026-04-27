@@ -1,5 +1,7 @@
 package com.CodeChefs.usuario_ms.service;
 
+import com.CodeChefs.usuario_ms.dto.UsuarioRequestDTO;
+import com.CodeChefs.usuario_ms.dto.UsuarioResponseDTO;
 import com.CodeChefs.usuario_ms.model.Usuario;
 import com.CodeChefs.usuario_ms.repository.UsuarioRepository;
 import org.slf4j.Logger;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -19,38 +22,79 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public List<Usuario> listarUsuarios() {
+    // Convertir entidad a ResponseDTO
+    private UsuarioResponseDTO convertirAResponseDTO(Usuario usuario) {
+        return new UsuarioResponseDTO(
+                usuario.getId(),
+                usuario.getNombre(),
+                usuario.getEmail(),
+                usuario.getTelefono(),
+                usuario.getDireccion(),
+                usuario.getRol(),
+                usuario.isActivo(),
+                usuario.getFechaRegistro()
+        );
+    }
+
+    public List<UsuarioResponseDTO> listarUsuarios() {
         log.info("Listando todos los usuarios");
-        return usuarioRepository.findAll();
+        return usuarioRepository.findAll()
+                .stream()
+                .map(this::convertirAResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Usuario> buscarPorId(int id) {
+    public UsuarioResponseDTO buscarPorId(int id) {
         log.info("Buscando usuario con id: {}", id);
-        return usuarioRepository.findById(id);
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        return usuario.map(this::convertirAResponseDTO).orElse(null);
     }
 
-    public Optional<Usuario> buscarPorEmail(String email) {
+    public UsuarioResponseDTO buscarPorEmail(String email) {
         log.info("Buscando usuario por email: {}", email);
-        return usuarioRepository.findByEmail(email);
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+        return usuario.map(this::convertirAResponseDTO).orElse(null);
     }
 
-    public Usuario crearUsuario(Usuario usuario) {
-        log.info("Creando nuevo usuario: {}", usuario.getEmail());
-        usuario.setFechaRegistro(LocalDate.now());
+    public UsuarioResponseDTO crearUsuario(UsuarioRequestDTO dto) {
+        log.info("Creando nuevo usuario: {}", dto.getEmail());
+
+        // Verificar si el email ya existe
+        if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
+            log.warn("Email ya existe: {}", dto.getEmail());
+            return null;
+        }
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre(dto.getNombre());
+        usuario.setEmail(dto.getEmail());
+        usuario.setTelefono(dto.getTelefono());
+        usuario.setDireccion(dto.getDireccion());
+        usuario.setRol(dto.getRol());
         usuario.setActivo(true);
-        return usuarioRepository.save(usuario);
+        usuario.setFechaRegistro(LocalDate.now());
+
+        Usuario guardado = usuarioRepository.save(usuario);
+        return convertirAResponseDTO(guardado);
     }
 
-    public Optional<Usuario> actualizarUsuario(int id, Usuario usuarioActualizado) {
+    public UsuarioResponseDTO actualizarUsuario(int id, UsuarioRequestDTO dto) {
         log.info("Actualizando usuario con id: {}", id);
-        return usuarioRepository.findById(id).map(usuario -> {
-            usuario.setNombre(usuarioActualizado.getNombre());
-            usuario.setEmail(usuarioActualizado.getEmail());
-            usuario.setTelefono(usuarioActualizado.getTelefono());
-            usuario.setDireccion(usuarioActualizado.getDireccion());
-            usuario.setRol(usuarioActualizado.getRol());
-            return usuarioRepository.save(usuario);
-        });
+
+        Optional<Usuario> optional = usuarioRepository.findById(id);
+        if (optional.isEmpty()) {
+            return null;
+        }
+
+        Usuario usuario = optional.get();
+        usuario.setNombre(dto.getNombre());
+        usuario.setEmail(dto.getEmail());
+        usuario.setTelefono(dto.getTelefono());
+        usuario.setDireccion(dto.getDireccion());
+        usuario.setRol(dto.getRol());
+
+        Usuario actualizado = usuarioRepository.save(usuario);
+        return convertirAResponseDTO(actualizado);
     }
 
     public boolean eliminarUsuario(int id) {
@@ -62,19 +106,25 @@ public class UsuarioService {
         return false;
     }
 
-    // Consultas derivadas
-    public List<Usuario> buscarPorRol(String rol) {
-        log.info("Buscando usuarios por rol: {}", rol);
-        return usuarioRepository.findByRol(rol);
+    // Consultas derivadas con ResponseDTO
+    public List<UsuarioResponseDTO> buscarPorRol(String rol) {
+        return usuarioRepository.findByRol(rol)
+                .stream()
+                .map(this::convertirAResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Usuario> buscarPorNombre(String nombre) {
-        log.info("Buscando usuarios por nombre: {}", nombre);
-        return usuarioRepository.findByNombreContainingIgnoreCase(nombre);
+    public List<UsuarioResponseDTO> buscarPorNombre(String nombre) {
+        return usuarioRepository.findByNombreContainingIgnoreCase(nombre)
+                .stream()
+                .map(this::convertirAResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Usuario> listarActivos() {
-        log.info("Listando usuarios activos");
-        return usuarioRepository.findByActivoTrue();
+    public List<UsuarioResponseDTO> listarActivos() {
+        return usuarioRepository.findByActivoTrue()
+                .stream()
+                .map(this::convertirAResponseDTO)
+                .collect(Collectors.toList());
     }
 }

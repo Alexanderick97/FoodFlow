@@ -1,6 +1,7 @@
 package com.CodeChefs.restaurante_ms.controller;
 
-import com.CodeChefs.restaurante_ms.model.Restaurante;
+import com.CodeChefs.restaurante_ms.dto.RestauranteRequestDTO;
+import com.CodeChefs.restaurante_ms.dto.RestauranteResponseDTO;
 import com.CodeChefs.restaurante_ms.service.RestauranteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,30 +20,34 @@ public class RestauranteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Restaurante>> listarRestaurantes() {
+    public ResponseEntity<List<RestauranteResponseDTO>> listarRestaurantes() {
         return ResponseEntity.ok(restauranteService.listarRestaurantes());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        return restauranteService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Restaurante no encontrado con id: " + id));
+        RestauranteResponseDTO restaurante = restauranteService.buscarPorId(id);
+        if (restaurante == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Restaurante no encontrado con id: " + id);
+        }
+        return ResponseEntity.ok(restaurante);
     }
 
     @PostMapping
-    public ResponseEntity<?> crearRestaurante(@Valid @RequestBody Restaurante restaurante) {
-        Restaurante nuevo = restauranteService.crearRestaurante(restaurante);
+    public ResponseEntity<RestauranteResponseDTO> crearRestaurante(@Valid @RequestBody RestauranteRequestDTO dto) {
+        RestauranteResponseDTO nuevo = restauranteService.crearRestaurante(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarRestaurante(@PathVariable int id, @RequestBody Restaurante restaurante) {
-        return restauranteService.actualizarRestaurante(id, restaurante)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Restaurante no encontrado con id: " + id));
+    public ResponseEntity<?> actualizarRestaurante(@PathVariable int id, @Valid @RequestBody RestauranteRequestDTO dto) {
+        RestauranteResponseDTO actualizado = restauranteService.actualizarRestaurante(id, dto);
+        if (actualizado == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Restaurante no encontrado con id: " + id);
+        }
+        return ResponseEntity.ok(actualizado);
     }
 
     @DeleteMapping("/{id}")
@@ -56,17 +61,17 @@ public class RestauranteController {
 
     // Consultas derivadas
     @GetMapping("/buscar")
-    public ResponseEntity<List<Restaurante>> buscarPorNombre(@RequestParam String nombre) {
+    public ResponseEntity<List<RestauranteResponseDTO>> buscarPorNombre(@RequestParam String nombre) {
         return ResponseEntity.ok(restauranteService.buscarPorNombre(nombre));
     }
 
     @GetMapping("/activos")
-    public ResponseEntity<List<Restaurante>> listarActivos() {
+    public ResponseEntity<List<RestauranteResponseDTO>> listarActivos() {
         return ResponseEntity.ok(restauranteService.listarActivos());
     }
 
     @GetMapping("/calificacion/{minima}")
-    public ResponseEntity<List<Restaurante>> buscarPorCalificacion(@PathVariable double minima) {
+    public ResponseEntity<List<RestauranteResponseDTO>> buscarPorCalificacion(@PathVariable double minima) {
         return ResponseEntity.ok(restauranteService.buscarPorCalificacion(minima));
     }
 }
