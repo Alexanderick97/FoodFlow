@@ -8,12 +8,11 @@
 		<version>4.0.6</version>
 		<relativePath/>
 	</parent>
-
 	<groupId>com.CodeChefs</groupId>
-	<artifactId>pago-ms</artifactId>
+	<artifactId>promocion-ms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pago-ms</name>
-	<description>Microservicio de pago - FoodFlow</description>
+	<name>promocion-ms</name>
+	<description>Microservicio de promocion - FoodFlow</description>
 
 	<properties>
 		<java.version>17</java.version>
@@ -38,12 +37,14 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
+		<!-- ✅ MySQL Driver (corregido) -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- ✅ Test correcto -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

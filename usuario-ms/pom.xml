@@ -9,10 +9,10 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.CodeChefs</groupId>
-	<artifactId>restaurante-ms</artifactId>
+	<artifactId>usuario-ms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>restaurante-ms</name>
-	<description>Microservicio de restaurantes - FoodFlow</description>
+	<name>usuario-ms</name>
+	<description>Microservicio de usuario - FoodFlow</description>
 
 	<properties>
 		<java.version>17</java.version>
