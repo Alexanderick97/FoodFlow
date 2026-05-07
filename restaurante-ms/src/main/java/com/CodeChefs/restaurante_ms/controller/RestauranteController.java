@@ -3,6 +3,8 @@ package com.CodeChefs.restaurante_ms.controller;
 import com.CodeChefs.restaurante_ms.dto.RestauranteRequestDTO;
 import com.CodeChefs.restaurante_ms.dto.RestauranteResponseDTO;
 import com.CodeChefs.restaurante_ms.service.RestauranteService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/v1/restaurantes")
 public class RestauranteController {
 
+    private static final Logger log = LoggerFactory.getLogger(RestauranteController.class);
     private final RestauranteService restauranteService;
 
     public RestauranteController(RestauranteService restauranteService) {
@@ -73,5 +76,37 @@ public class RestauranteController {
     @GetMapping("/calificacion/{minima}")
     public ResponseEntity<List<RestauranteResponseDTO>> buscarPorCalificacion(@PathVariable double minima) {
         return ResponseEntity.ok(restauranteService.buscarPorCalificacion(minima));
+    }
+
+    // ✅ Endpoint para actualizar el promedio (usado por calificacion-ms)
+    @PatchMapping("/{id}/promedio")
+    public ResponseEntity<?> actualizarPromedio(@PathVariable int id,
+                                                @RequestParam double promedio) {
+        log.info("Actualizando promedio del restaurante {} a {}", id, promedio);
+
+        // Buscar el restaurante usando el service (devuelve ResponseDTO)
+        RestauranteResponseDTO restaurante = restauranteService.buscarPorId(id);
+        if (restaurante == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Restaurante no encontrado con id: " + id);
+        }
+
+        // Crear un RequestDTO para actualizar solo el promedio
+        RestauranteRequestDTO updateDTO = new RestauranteRequestDTO();
+        updateDTO.setNombre(restaurante.getNombre());
+        updateDTO.setDireccion(restaurante.getDireccion());
+        updateDTO.setTelefono(restaurante.getTelefono());
+        updateDTO.setHorarioApertura(restaurante.getHorarioApertura());
+        updateDTO.setHorarioCierre(restaurante.getHorarioCierre());
+        // La calificacionPromedio no está en el DTO, se maneja aparte
+
+        // Actualizar usando el service
+        RestauranteResponseDTO actualizado = restauranteService.actualizarPromedio(id, promedio);
+        if (actualizado == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Restaurante no encontrado con id: " + id);
+        }
+
+        return ResponseEntity.ok("Promedio actualizado correctamente");
     }
 }

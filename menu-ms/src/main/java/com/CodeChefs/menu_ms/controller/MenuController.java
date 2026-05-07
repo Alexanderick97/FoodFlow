@@ -35,19 +35,29 @@ public class MenuController {
     }
 
     @PostMapping
-    public ResponseEntity<MenuResponseDTO> crearPlato(@Valid @RequestBody MenuRequestDTO dto) {
-        MenuResponseDTO nuevo = menuService.crearPlato(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
+    public ResponseEntity<?> crearPlato(@Valid @RequestBody MenuRequestDTO dto) {
+        try {
+            MenuResponseDTO nuevo = menuService.crearPlato(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarPlato(@PathVariable int id, @Valid @RequestBody MenuRequestDTO dto) {
-        MenuResponseDTO actualizado = menuService.actualizarPlato(id, dto);
-        if (actualizado == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Plato no encontrado con id: " + id);
+        try {
+            MenuResponseDTO actualizado = menuService.actualizarPlato(id, dto);
+            if (actualizado == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Plato no encontrado con id: " + id);
+            }
+            return ResponseEntity.ok(actualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
-        return ResponseEntity.ok(actualizado);
     }
 
     @PatchMapping("/{id}/disponibilidad")

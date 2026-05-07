@@ -114,4 +114,19 @@ public class RestauranteService {
                 .map(this::convertirAResponseDTO)
                 .collect(Collectors.toList());
     }
+
+    public RestauranteResponseDTO actualizarPromedio(int id, double promedio) {
+        log.info("Actualizando promedio del restaurante {} a {}", id, promedio);
+
+        Optional<Restaurante> optional = restauranteRepository.findById(id);
+        if (optional.isEmpty()) {
+            return null;
+        }
+
+        Restaurante restaurante = optional.get();
+        restaurante.setCalificacionPromedio(promedio);
+        Restaurante actualizado = restauranteRepository.save(restaurante);
+
+        return convertirAResponseDTO(actualizado);
+    }
 }

@@ -1,9 +1,11 @@
 package com.CodeChefs.menu_ms.service;
 
+import com.CodeChefs.menu_ms.clients.RestauranteFeignClient;
 import com.CodeChefs.menu_ms.dto.MenuRequestDTO;
 import com.CodeChefs.menu_ms.dto.MenuResponseDTO;
 import com.CodeChefs.menu_ms.model.Menu;
 import com.CodeChefs.menu_ms.repository.MenuRepository;
+import feign.FeignException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,24 @@ public class MenuService {
 
     private static final Logger log = LoggerFactory.getLogger(MenuService.class);
     private final MenuRepository menuRepository;
+    private final RestauranteFeignClient restauranteFeignClient;
 
-    public MenuService(MenuRepository menuRepository) {
+    public MenuService(MenuRepository menuRepository,
+                       RestauranteFeignClient restauranteFeignClient) {
         this.menuRepository = menuRepository;
+        this.restauranteFeignClient = restauranteFeignClient;
+    }
+
+    // Validar que el restaurante existe
+    private boolean restauranteExiste(int restauranteId) {
+        try {
+            RestauranteFeignClient.RestauranteResponse restaurante =
+                    restauranteFeignClient.getRestauranteById(restauranteId);
+            return restaurante != null && restaurante.isActivo();
+        } catch (FeignException e) {
+            log.error("Error al validar restaurante {}: {}", restauranteId, e.getMessage());
+            return false;
+        }
     }
 
     // Convertir entidad a ResponseDTO
@@ -52,6 +69,12 @@ public class MenuService {
     public MenuResponseDTO crearPlato(MenuRequestDTO dto) {
         log.info("Creando nuevo plato: {} para restaurante {}", dto.getNombre(), dto.getRestauranteId());
 
+        // ✅ VALIDAR QUE EL RESTAURANTE EXISTE
+        if (!restauranteExiste(dto.getRestauranteId())) {
+            log.warn("Restaurante {} no existe o está inactivo", dto.getRestauranteId());
+            throw new RuntimeException("Restaurante no existe o está inactivo");
+        }
+
         Menu menu = new Menu();
         menu.setRestauranteId(dto.getRestauranteId());
         menu.setNombre(dto.getNombre());
@@ -67,6 +90,12 @@ public class MenuService {
 
     public MenuResponseDTO actualizarPlato(int id, MenuRequestDTO dto) {
         log.info("Actualizando plato con id: {}", id);
+
+        // ✅ VALIDAR QUE EL RESTAURANTE EXISTE
+        if (!restauranteExiste(dto.getRestauranteId())) {
+            log.warn("Restaurante {} no existe o está inactivo", dto.getRestauranteId());
+            throw new RuntimeException("Restaurante no existe o está inactivo");
+        }
 
         Optional<Menu> optional = menuRepository.findById(id);
         if (optional.isEmpty()) {

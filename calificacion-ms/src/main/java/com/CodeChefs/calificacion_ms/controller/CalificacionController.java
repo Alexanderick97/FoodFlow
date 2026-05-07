@@ -35,19 +35,30 @@ public class CalificacionController {
     }
 
     @PostMapping
-    public ResponseEntity<CalificacionResponseDTO> crearCalificacion(@Valid @RequestBody CalificacionRequestDTO dto) {
-        CalificacionResponseDTO nueva = calificacionService.crearCalificacion(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
+    public ResponseEntity<?> crearCalificacion(@Valid @RequestBody CalificacionRequestDTO dto) {
+        try {
+            CalificacionResponseDTO nueva = calificacionService.crearCalificacion(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarCalificacion(@PathVariable int id, @Valid @RequestBody CalificacionRequestDTO dto) {
-        CalificacionResponseDTO actualizada = calificacionService.actualizarCalificacion(id, dto);
-        if (actualizada == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Calificación no encontrada con id: " + id);
+    public ResponseEntity<?> actualizarCalificacion(@PathVariable int id,
+                                                    @Valid @RequestBody CalificacionRequestDTO dto) {
+        try {
+            CalificacionResponseDTO actualizada = calificacionService.actualizarCalificacion(id, dto);
+            if (actualizada == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Calificación no encontrada con id: " + id);
+            }
+            return ResponseEntity.ok(actualizada);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
-        return ResponseEntity.ok(actualizada);
     }
 
     @DeleteMapping("/{id}")

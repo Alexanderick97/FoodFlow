@@ -6,23 +6,31 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="menu-ms" />
+        <module name="calificacion-ms" />
+        <module name="usuario-ms" />
+        <module name="restaurante-ms (5)" />
         <module name="restaurante-ms (4)" />
         <module name="restaurante-ms (3)" />
         <module name="restaurante-ms (2)" />
         <module name="restaurante-ms (1)" />
         <module name="restaurante-ms" />
-        <module name="restaurante-ms (5)" />
+        <module name="reserva-ms" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="calificacion-ms" options="-parameters" />
+      <module name="menu-ms" options="-parameters" />
+      <module name="reserva-ms" options="-parameters" />
       <module name="restaurante-ms" options="-parameters" />
       <module name="restaurante-ms (1)" options="-parameters" />
       <module name="restaurante-ms (2)" options="-parameters" />
       <module name="restaurante-ms (3)" options="-parameters" />
       <module name="restaurante-ms (4)" options="-parameters" />
       <module name="restaurante-ms (5)" options="-parameters" />
+      <module name="usuario-ms" options="-parameters" />
     </option>
   </component>
 </project>
