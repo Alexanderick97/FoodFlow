@@ -69,7 +69,7 @@ public class MenuService {
     public MenuResponseDTO crearPlato(MenuRequestDTO dto) {
         log.info("Creando nuevo plato: {} para restaurante {}", dto.getNombre(), dto.getRestauranteId());
 
-        // ✅ VALIDAR QUE EL RESTAURANTE EXISTE
+        // VALIDAR QUE EL RESTAURANTE EXISTE
         if (!restauranteExiste(dto.getRestauranteId())) {
             log.warn("Restaurante {} no existe o está inactivo", dto.getRestauranteId());
             throw new RuntimeException("Restaurante no existe o está inactivo");
