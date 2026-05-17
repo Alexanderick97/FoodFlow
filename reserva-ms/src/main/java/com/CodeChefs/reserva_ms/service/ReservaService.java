@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +31,6 @@ public class ReservaService {
         this.restauranteFeignClient = restauranteFeignClient;
     }
 
-    // Convertir entidad a ResponseDTO
     private ReservaResponseDTO convertirAResponseDTO(Reserva reserva) {
         return new ReservaResponseDTO(
                 reserva.getId(),
@@ -47,7 +45,6 @@ public class ReservaService {
         );
     }
 
-    // Validar que el usuario existe
     private boolean usuarioExiste(int usuarioId) {
         try {
             UsuarioFeignClient.UsuarioResponse usuario = usuarioFeignClient.getUsuarioById(usuarioId);
@@ -58,7 +55,6 @@ public class ReservaService {
         }
     }
 
-    // Validar que el restaurante existe
     private boolean restauranteExiste(int restauranteId) {
         try {
             RestauranteFeignClient.RestauranteResponse restaurante = restauranteFeignClient.getRestauranteById(restauranteId);
@@ -68,8 +64,6 @@ public class ReservaService {
             return false;
         }
     }
-
-    // ============ CRUD PRINCIPAL ============
 
     public List<ReservaResponseDTO> listarReservas() {
         log.info("Listando todas las reservas");
@@ -88,13 +82,11 @@ public class ReservaService {
     public ReservaResponseDTO crearReserva(ReservaRequestDTO dto) {
         log.info("Creando nueva reserva para restaurante {} y usuario {}", dto.getRestauranteId(), dto.getUsuarioId());
 
-        // Validar que el usuario existe
         if (!usuarioExiste(dto.getUsuarioId())) {
             log.warn("Usuario {} no existe o está inactivo", dto.getUsuarioId());
             throw new RuntimeException("Usuario no existe o está inactivo");
         }
 
-        // Validar que el restaurante existe
         if (!restauranteExiste(dto.getRestauranteId())) {
             log.warn("Restaurante {} no existe o está inactivo", dto.getRestauranteId());
             throw new RuntimeException("Restaurante no existe o está inactivo");
@@ -157,8 +149,6 @@ public class ReservaService {
         }
         return false;
     }
-
-    // ============ CONSULTAS DERIVADAS ============
 
     public List<ReservaResponseDTO> buscarPorRestaurante(int restauranteId) {
         return reservaRepository.findByRestauranteId(restauranteId)

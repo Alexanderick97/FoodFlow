@@ -79,7 +79,6 @@ public class MenuController {
                 .body("Plato no encontrado con id: " + id);
     }
 
-    // Consultas derivadas
     @GetMapping("/restaurante/{restauranteId}")
     public ResponseEntity<List<MenuResponseDTO>> buscarPorRestaurante(@PathVariable int restauranteId) {
         return ResponseEntity.ok(menuService.buscarPorRestaurante(restauranteId));

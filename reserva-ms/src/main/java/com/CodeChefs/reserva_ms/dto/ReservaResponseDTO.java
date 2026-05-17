@@ -15,7 +15,6 @@ public class ReservaResponseDTO {
     private boolean activo;
     private String comentarios;
 
-    // Constructor
     public ReservaResponseDTO(int id, int restauranteId, int usuarioId, LocalDate fecha,
                               LocalTime hora, int numeroPersonas, String estado,
                               boolean activo, String comentarios) {
@@ -30,7 +29,6 @@ public class ReservaResponseDTO {
         this.comentarios = comentarios;
     }
 
-    // Getters
     public int getId() { return id; }
     public int getRestauranteId() { return restauranteId; }
     public int getUsuarioId() { return usuarioId; }

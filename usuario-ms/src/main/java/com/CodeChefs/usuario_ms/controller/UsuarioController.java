@@ -73,7 +73,6 @@ public class UsuarioController {
                 .body("Usuario no encontrado con id: " + id);
     }
 
-    // Consultas derivadas
     @GetMapping("/rol/{rol}")
     public ResponseEntity<List<UsuarioResponseDTO>> buscarPorRol(@PathVariable String rol) {
         return ResponseEntity.ok(usuarioService.buscarPorRol(rol));

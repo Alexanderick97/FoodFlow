@@ -10,14 +10,12 @@ public interface UsuarioFeignClient {
     @GetMapping("/api/v1/usuarios/{id}")
     UsuarioResponse getUsuarioById(@PathVariable("id") int id);
 
-    // Clase interna para mapear la respuesta
     class UsuarioResponse {
         private int id;
         private String nombre;
         private String email;
         private boolean activo;
 
-        // Getters y Setters
         public int getId() { return id; }
         public void setId(int id) { this.id = id; }
         public String getNombre() { return nombre; }

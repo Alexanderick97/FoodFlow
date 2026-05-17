@@ -70,7 +70,6 @@ public class CalificacionController {
                 .body("Calificación no encontrada con id: " + id);
     }
 
-    // Consultas derivadas
     @GetMapping("/restaurante/{restauranteId}")
     public ResponseEntity<List<CalificacionResponseDTO>> buscarPorRestaurante(@PathVariable int restauranteId) {
         return ResponseEntity.ok(calificacionService.buscarPorRestaurante(restauranteId));
@@ -103,7 +102,6 @@ public class CalificacionController {
         return ResponseEntity.ok(calificacionService.buscarCalificacionesAltasPorRestaurante(restauranteId, puntuacionMinima));
     }
 
-    // Clase auxiliar para respuesta de promedio
     static class PromedioResponse {
         private double promedio;
         public PromedioResponse(double promedio) { this.promedio = promedio; }

@@ -24,7 +24,6 @@ public class CalificacionRequestDTO {
     @Size(max = 500, message = "El comentario no puede tener más de 500 caracteres")
     private String comentario;
 
-    // Getters y Setters
     public int getPedidoId() { return pedidoId; }
     public void setPedidoId(int pedidoId) { this.pedidoId = pedidoId; }
 

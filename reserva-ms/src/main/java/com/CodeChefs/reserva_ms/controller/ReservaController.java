@@ -79,7 +79,6 @@ public class ReservaController {
                 .body("Reserva no encontrada con id: " + id);
     }
 
-    // Consultas derivadas
     @GetMapping("/restaurante/{restauranteId}")
     public ResponseEntity<List<ReservaResponseDTO>> buscarPorRestaurante(@PathVariable int restauranteId) {
         return ResponseEntity.ok(reservaService.buscarPorRestaurante(restauranteId));

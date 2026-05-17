@@ -24,7 +24,6 @@ public class MenuRequestDTO {
 
     private String imagenUrl;
 
-    // Getters y Setters
     public int getRestauranteId() { return restauranteId; }
     public void setRestauranteId(int restauranteId) { this.restauranteId = restauranteId; }
 

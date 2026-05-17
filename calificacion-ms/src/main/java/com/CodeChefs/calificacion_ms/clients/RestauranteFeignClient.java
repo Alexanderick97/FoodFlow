@@ -16,13 +16,11 @@ public interface RestauranteFeignClient {
     void actualizarPromedio(@PathVariable("id") int id,
                             @RequestParam("promedio") double promedio);
 
-    // Clase interna para mapear la respuesta
     class RestauranteResponse {
         private int id;
         private String nombre;
         private boolean activo;
 
-        // Getters y Setters
         public int getId() { return id; }
         public void setId(int id) { this.id = id; }
         public String getNombre() { return nombre; }

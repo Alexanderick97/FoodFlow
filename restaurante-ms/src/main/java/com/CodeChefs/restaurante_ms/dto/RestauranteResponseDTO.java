@@ -11,7 +11,6 @@ public class RestauranteResponseDTO {
     private boolean activo;
     private double calificacionPromedio;
 
-    // Constructor
     public RestauranteResponseDTO(int id, String nombre, String direccion, String telefono,
                                   String horarioApertura, String horarioCierre,
                                   boolean activo, double calificacionPromedio) {
@@ -25,7 +24,6 @@ public class RestauranteResponseDTO {
         this.calificacionPromedio = calificacionPromedio;
     }
 
-    // Getters (solo getters, sin setters)
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getDireccion() { return direccion; }

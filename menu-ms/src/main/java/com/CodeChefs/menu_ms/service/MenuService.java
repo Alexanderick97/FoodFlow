@@ -26,7 +26,6 @@ public class MenuService {
         this.restauranteFeignClient = restauranteFeignClient;
     }
 
-    // Validar que el restaurante existe
     private boolean restauranteExiste(int restauranteId) {
         try {
             RestauranteFeignClient.RestauranteResponse restaurante =
@@ -38,7 +37,6 @@ public class MenuService {
         }
     }
 
-    // Convertir entidad a ResponseDTO
     private MenuResponseDTO convertirAResponseDTO(Menu menu) {
         return new MenuResponseDTO(
                 menu.getId(),
@@ -69,7 +67,6 @@ public class MenuService {
     public MenuResponseDTO crearPlato(MenuRequestDTO dto) {
         log.info("Creando nuevo plato: {} para restaurante {}", dto.getNombre(), dto.getRestauranteId());
 
-        // VALIDAR QUE EL RESTAURANTE EXISTE
         if (!restauranteExiste(dto.getRestauranteId())) {
             log.warn("Restaurante {} no existe o está inactivo", dto.getRestauranteId());
             throw new RuntimeException("Restaurante no existe o está inactivo");
@@ -91,7 +88,6 @@ public class MenuService {
     public MenuResponseDTO actualizarPlato(int id, MenuRequestDTO dto) {
         log.info("Actualizando plato con id: {}", id);
 
-        // ✅ VALIDAR QUE EL RESTAURANTE EXISTE
         if (!restauranteExiste(dto.getRestauranteId())) {
             log.warn("Restaurante {} no existe o está inactivo", dto.getRestauranteId());
             throw new RuntimeException("Restaurante no existe o está inactivo");
@@ -138,7 +134,6 @@ public class MenuService {
         return false;
     }
 
-    // Consultas derivadas
     public List<MenuResponseDTO> buscarPorRestaurante(int restauranteId) {
         return menuRepository.findByRestauranteId(restauranteId)
                 .stream()

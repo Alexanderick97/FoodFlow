@@ -29,10 +29,8 @@ public class Calificacion {
     @Column(nullable = false)
     private LocalDate fecha;
 
-    // Constructor vacío
     public Calificacion() {}
 
-    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

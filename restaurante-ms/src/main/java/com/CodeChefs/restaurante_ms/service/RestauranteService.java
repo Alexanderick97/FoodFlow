@@ -21,7 +21,6 @@ public class RestauranteService {
         this.restauranteRepository = restauranteRepository;
     }
 
-    // Convertir entidad a ResponseDTO
     private RestauranteResponseDTO convertirAResponseDTO(Restaurante restaurante) {
         return new RestauranteResponseDTO(
                 restaurante.getId(),
@@ -93,7 +92,6 @@ public class RestauranteService {
         return false;
     }
 
-    // Consultas derivadas con ResponseDTO
     public List<RestauranteResponseDTO> buscarPorNombre(String nombre) {
         return restauranteRepository.findByNombreContainingIgnoreCase(nombre)
                 .stream()

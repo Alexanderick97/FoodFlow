@@ -12,7 +12,6 @@ public class CalificacionResponseDTO {
     private String comentario;
     private LocalDate fecha;
 
-    // Constructor
     public CalificacionResponseDTO(int id, int pedidoId, int restauranteId, int usuarioId,
                                    int puntuacion, String comentario, LocalDate fecha) {
         this.id = id;
@@ -24,7 +23,6 @@ public class CalificacionResponseDTO {
         this.fecha = fecha;
     }
 
-    // Getters
     public int getId() { return id; }
     public int getPedidoId() { return pedidoId; }
     public int getRestauranteId() { return restauranteId; }

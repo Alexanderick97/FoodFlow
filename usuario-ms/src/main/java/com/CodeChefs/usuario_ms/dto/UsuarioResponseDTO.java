@@ -13,7 +13,6 @@ public class UsuarioResponseDTO {
     private boolean activo;
     private LocalDate fechaRegistro;
 
-    // Constructor
     public UsuarioResponseDTO(int id, String nombre, String email, String telefono,
                               String direccion, String rol, boolean activo, LocalDate fechaRegistro) {
         this.id = id;
@@ -26,7 +25,6 @@ public class UsuarioResponseDTO {
         this.fechaRegistro = fechaRegistro;
     }
 
-    // Getters
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getEmail() { return email; }

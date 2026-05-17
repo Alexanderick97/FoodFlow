@@ -11,7 +11,6 @@ public class MenuResponseDTO {
     private boolean disponible;
     private String imagenUrl;
 
-    // Constructor
     public MenuResponseDTO(int id, int restauranteId, String nombre, String descripcion,
                            double precio, String categoria, boolean disponible, String imagenUrl) {
         this.id = id;
@@ -24,7 +23,6 @@ public class MenuResponseDTO {
         this.imagenUrl = imagenUrl;
     }
 
-    // Getters
     public int getId() { return id; }
     public int getRestauranteId() { return restauranteId; }
     public String getNombre() { return nombre; }

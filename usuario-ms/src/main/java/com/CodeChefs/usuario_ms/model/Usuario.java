@@ -24,7 +24,7 @@ public class Usuario {
     private String direccion;
 
     @Column(nullable = false)
-    private String rol;  // CLIENTE, REPARTIDOR, ADMIN
+    private String rol;
 
     @Column(nullable = false)
     private boolean activo = true;
@@ -32,10 +32,8 @@ public class Usuario {
     @Column(name = "fecha_registro")
     private LocalDate fechaRegistro;
 
-    // Constructor vacío
     public Usuario() {}
 
-    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

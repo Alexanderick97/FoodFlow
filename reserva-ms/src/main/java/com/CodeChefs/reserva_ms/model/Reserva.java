@@ -28,17 +28,15 @@ public class Reserva {
     private int numeroPersonas;
 
     @Column(nullable = false, length = 50)
-    private String estado;  // PENDIENTE, CONFIRMADA, CANCELADA, COMPLETADA
+    private String estado;
 
     @Column(nullable = false)
     private boolean activo = true;
 
     private String comentarios;
 
-    // Constructor vacío
     public Reserva() {}
 
-    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

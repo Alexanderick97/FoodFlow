@@ -20,9 +20,9 @@ public class UsuarioRequestDTO {
     private String direccion;
 
     @NotBlank(message = "El rol es obligatorio")
-    private String rol;  // CLIENTE, REPARTIDOR, ADMIN
+    private String rol;
 
-    // Get y Set
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 

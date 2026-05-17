@@ -22,7 +22,6 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // Convertir entidad a ResponseDTO
     private UsuarioResponseDTO convertirAResponseDTO(Usuario usuario) {
         return new UsuarioResponseDTO(
                 usuario.getId(),
@@ -59,7 +58,6 @@ public class UsuarioService {
     public UsuarioResponseDTO crearUsuario(UsuarioRequestDTO dto) {
         log.info("Creando nuevo usuario: {}", dto.getEmail());
 
-        // Verificar si el email ya existe
         if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
             log.warn("Email ya existe: {}", dto.getEmail());
             return null;
@@ -106,7 +104,6 @@ public class UsuarioService {
         return false;
     }
 
-    // Consultas derivadas con ResponseDTO
     public List<UsuarioResponseDTO> buscarPorRol(String rol) {
         return usuarioRepository.findByRol(rol)
                 .stream()

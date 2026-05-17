@@ -27,7 +27,6 @@ public class CalificacionService {
         this.restauranteFeignClient = restauranteFeignClient;
     }
 
-    // Validar que el restaurante existe
     private boolean restauranteExiste(int restauranteId) {
         try {
             RestauranteFeignClient.RestauranteResponse restaurante =
@@ -39,7 +38,6 @@ public class CalificacionService {
         }
     }
 
-    // Actualizar el promedio del restaurante
     private void actualizarPromedioRestaurante(int restauranteId) {
         try {
             Double promedio = calificacionRepository.calcularPromedioPorRestaurante(restauranteId);
@@ -52,7 +50,6 @@ public class CalificacionService {
         }
     }
 
-    // Convertir entidad a ResponseDTO
     private CalificacionResponseDTO convertirAResponseDTO(Calificacion calificacion) {
         return new CalificacionResponseDTO(
                 calificacion.getId(),
@@ -83,7 +80,6 @@ public class CalificacionService {
         log.info("Creando nueva calificación para pedido {} y restaurante {}",
                 dto.getPedidoId(), dto.getRestauranteId());
 
-        // ✅ VALIDAR QUE EL RESTAURANTE EXISTE
         if (!restauranteExiste(dto.getRestauranteId())) {
             log.warn("Restaurante {} no existe o está inactivo", dto.getRestauranteId());
             throw new RuntimeException("Restaurante no existe o está inactivo");
@@ -99,7 +95,6 @@ public class CalificacionService {
 
         Calificacion guardado = calificacionRepository.save(calificacion);
 
-        // ✅ ACTUALIZAR EL PROMEDIO DEL RESTAURANTE
         actualizarPromedioRestaurante(dto.getRestauranteId());
 
         return convertirAResponseDTO(guardado);
@@ -119,7 +114,6 @@ public class CalificacionService {
 
         Calificacion actualizado = calificacionRepository.save(calificacion);
 
-        // ✅ ACTUALIZAR EL PROMEDIO DEL RESTAURANTE (puede haber cambiado)
         actualizarPromedioRestaurante(calificacion.getRestauranteId());
 
         return convertirAResponseDTO(actualizado);
@@ -128,7 +122,6 @@ public class CalificacionService {
     public boolean eliminarCalificacion(int id) {
         log.info("Eliminando calificación con id: {}", id);
 
-        // Obtener el restauranteId antes de eliminar
         Optional<Calificacion> calificacion = calificacionRepository.findById(id);
         if (calificacion.isEmpty()) {
             return false;
@@ -137,13 +130,11 @@ public class CalificacionService {
         int restauranteId = calificacion.get().getRestauranteId();
         calificacionRepository.deleteById(id);
 
-        // ✅ ACTUALIZAR EL PROMEDIO DEL RESTAURANTE (después de eliminar)
         actualizarPromedioRestaurante(restauranteId);
 
         return true;
     }
 
-    // Consultas derivadas
     public List<CalificacionResponseDTO> buscarPorRestaurante(int restauranteId) {
         return calificacionRepository.findByRestauranteId(restauranteId)
                 .stream()

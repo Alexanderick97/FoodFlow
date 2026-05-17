@@ -62,7 +62,6 @@ public class RestauranteController {
                 .body("Restaurante no encontrado con id: " + id);
     }
 
-    // Consultas derivadas
     @GetMapping("/buscar")
     public ResponseEntity<List<RestauranteResponseDTO>> buscarPorNombre(@RequestParam String nombre) {
         return ResponseEntity.ok(restauranteService.buscarPorNombre(nombre));
@@ -78,29 +77,24 @@ public class RestauranteController {
         return ResponseEntity.ok(restauranteService.buscarPorCalificacion(minima));
     }
 
-    // ✅ Endpoint para actualizar el promedio (usado por calificacion-ms)
     @PatchMapping("/{id}/promedio")
     public ResponseEntity<?> actualizarPromedio(@PathVariable int id,
                                                 @RequestParam double promedio) {
         log.info("Actualizando promedio del restaurante {} a {}", id, promedio);
 
-        // Buscar el restaurante usando el service (devuelve ResponseDTO)
         RestauranteResponseDTO restaurante = restauranteService.buscarPorId(id);
         if (restaurante == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Restaurante no encontrado con id: " + id);
         }
 
-        // Crear un RequestDTO para actualizar solo el promedio
         RestauranteRequestDTO updateDTO = new RestauranteRequestDTO();
         updateDTO.setNombre(restaurante.getNombre());
         updateDTO.setDireccion(restaurante.getDireccion());
         updateDTO.setTelefono(restaurante.getTelefono());
         updateDTO.setHorarioApertura(restaurante.getHorarioApertura());
         updateDTO.setHorarioCierre(restaurante.getHorarioCierre());
-        // La calificacionPromedio no está en el DTO, se maneja aparte
 
-        // Actualizar usando el service
         RestauranteResponseDTO actualizado = restauranteService.actualizarPromedio(id, promedio);
         if (actualizado == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

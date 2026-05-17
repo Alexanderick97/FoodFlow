@@ -11,7 +11,7 @@ public class Menu {
     private int id;
 
     @Column(nullable = false)
-    private int restauranteId;  // FK al restaurante-ms
+    private int restauranteId;
 
     @Column(nullable = false, length = 100)
     private String nombre;
@@ -23,17 +23,15 @@ public class Menu {
     private double precio;
 
     @Column(length = 50)
-    private String categoria;  // ENTRADA, PRINCIPAL, POSTRE, BEBIDA
+    private String categoria;
 
     @Column(nullable = false)
     private boolean disponible = true;
 
     private String imagenUrl;
 
-    // Constructor vacío
     public Menu() {}
 
-    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
