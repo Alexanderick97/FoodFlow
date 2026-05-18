@@ -1,7 +1,7 @@
-package com.deliveryms.service;
+package com.CodeChefs.delivery_ms.service;
 
-import com.deliveryms.model.Delivery;
-import com.deliveryms.repository.DeliveryRepository;
+import com.CodeChefs.delivery_ms.model.Delivery;
+import com.CodeChefs.delivery_ms.repository.DeliveryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
