@@ -1,10 +1,10 @@
-package com.CodeChefs.ordenMS.service;
+package com.CodeChefs.orden_ms.service;
 
 
 
-import com.CodeChefs.ordenMS.model.Orden;
+import com.CodeChefs.orden_ms.model.Orden;
 
-import com.CodeChefs.ordenMS.repository.OrdenRepository;
+import com.CodeChefs.orden_ms.repository.OrdenRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
