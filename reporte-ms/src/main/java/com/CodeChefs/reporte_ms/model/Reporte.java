@@ -1,4 +1,4 @@
-package com.CodeChefs.ReporteMS.model;
+package com.CodeChefs.reporte_ms.model;
 
 import jakarta.persistence.*;
 
