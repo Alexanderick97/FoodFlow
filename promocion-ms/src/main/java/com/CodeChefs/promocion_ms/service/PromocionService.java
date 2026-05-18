@@ -1,11 +1,12 @@
-package com.CodeChefs.PromocionMS.service;
+package com.CodeChefs.promocion_ms.service;
 
-import com.CodeChefs.PromocionMS.model.Promocion;
-import com.CodeChefs.PromocionMS.repository.PromocionRepository;
+import com.CodeChefs.promocion_ms.model.Promocion;
+import com.CodeChefs.promocion_ms.repository.PromocionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PromocionService {
