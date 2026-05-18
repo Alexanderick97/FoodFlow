@@ -1,14 +1,14 @@
-package com.CodeChefs.ordenMS.controller;
+package com.CodeChefs.orden_ms.controller;
 
 
 
-import com.CodeChefs.ordenMS.model.Orden;
+import com.CodeChefs.orden_ms.model.Orden;
 
-import com.CodeChefs.ordenMS.service.OrdenService;
+import com.CodeChefs.orden_ms.service.OrdenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.\*;
+import org.springframework.web.bind.annotation.*;
 
 
 
