@@ -1,22 +1,31 @@
-package com.CodeChefs.PromocionMS.model;
+package com.CodeChefs.promocion_ms.model;
 
-import.jakarta.persistence.*;
+import jakarta.persistence.*;
 
-@entity
+@Entity
 
 public class Promocion{
 
-    @id
+    @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
 
     private Long id;
+    private String nombre;
     private String descripcion;
     private Double descuento;
     private boolean activa;
-    private String producto;
+    private String productoId;
 
     public Long getId(){
         return id;
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+
+    public void setNombre (String nombre){
+        this.nombre = nombre;
     }
 
     public String getDescripcion(){
@@ -24,7 +33,7 @@ public class Promocion{
     }
 
     public void setDescripcion (String descripcion){
-        this.descripcion = descripcion
+        this.descripcion = descripcion;
     }
 
     public Double getDescuento(){
@@ -32,7 +41,7 @@ public class Promocion{
     }
 
     public void setDescuento (Double descuento){
-        this.descuento = descuento
+        this.descuento = descuento;
     }
 
     public boolean getActiva(){
@@ -40,14 +49,14 @@ public class Promocion{
     }
 
     public void setActiva (boolean activa){
-        this.activa = true
+        this.activa = true;
     }
 
-    public String getProducto(){
-        return producto;
+    public String getProductoId(){
+        return productoId;
     }
 
-    public void setProducto (String producto){
-        this.producto = producto
+    public void setProductoId (String productoId){
+        this.productoId = productoId;
     }
 }
