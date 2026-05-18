@@ -1,10 +1,12 @@
-package com.CodeChefs.PromocionMS.controller;
+package com.CodeChefs.promocion_ms.controller;
 
-import com.CodeChefs.PromocionMS.model.Promocion;
-import com.CodeChefs.PromocionMS.service.PromocionService;
+import com.CodeChefs.promocion_ms.model.Promocion;
+import com.CodeChefs.promocion_ms.service.PromocionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/promociones")
