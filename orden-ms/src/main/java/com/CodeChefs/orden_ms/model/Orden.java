@@ -1,8 +1,8 @@
-package com.CodeChefs.ordenMS.model;
+package com.CodeChefs.orden_ms.model;
 
 
 
-import jakarta.persistence.\*;
+import jakarta.persistence.*;
 
 
 
