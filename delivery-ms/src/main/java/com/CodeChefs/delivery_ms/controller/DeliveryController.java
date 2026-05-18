@@ -1,7 +1,7 @@
-package com.deliveryms.controller;
+package com.CodeChefs.delivery_ms.controller;
 
-import com.deliveryms.model.Delivery;
-import com.deliveryms.service.DeliveryService;
+import com.CodeChefs.delivery_ms.model.Delivery;
+import com.CodeChefs.delivery_ms.service.DeliveryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
