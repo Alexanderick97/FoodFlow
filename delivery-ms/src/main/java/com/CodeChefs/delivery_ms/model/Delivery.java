@@ -1,10 +1,10 @@
-package com.CodeChefs.deliveryMS.model;
+package com.CodeChefs.delivery_ms.model;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "delivery")
-public class delivery {
+public class Delivery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +16,11 @@ public class delivery {
     private String nombreRepartidor;
     private String estadoEntrega;
 
-    public delivery(){
+    public Delivery(){
 
     }
 
-    public delivery(Long id, Long idOrden, String nombreCliente, String direccionEntrega, String nombreRepartidor, String estadoEntrega){
+    public Delivery(Long id, Long idOrden, String nombreCliente, String direccionEntrega, String nombreRepartidor, String estadoEntrega){
         this.id = id;
         this.idOrden = idOrden;
         this.nombreCliente = nombreCliente;
