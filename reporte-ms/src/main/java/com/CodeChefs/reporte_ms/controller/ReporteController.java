@@ -1,7 +1,7 @@
-package com.CodeChefs.ReporteMS.controller;
+package com.CodeChefs.reporte_ms.controller;
 
-import com.CodeChefs.ReporteMS.model.Reporte;
-import com.CodeChefs.ReporteMS.service.ReporteService;
+import com.CodeChefs.reporte_ms.model.Reporte;
+import com.CodeChefs.reporte_ms.service.ReporteService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
