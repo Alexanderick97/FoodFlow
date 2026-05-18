@@ -1,7 +1,7 @@
-package com.CodeChefs.ReporteMS.service;
+package com.CodeChefs.reporte_ms.service;
 
-import com.CodeChefs.ReporteMS.model.Reporte;
-import com.CodeChefs.ReporteMS.repository.ReporteRepository;
+import com.CodeChefs.reporte_ms.model.Reporte;
+import com.CodeChefs.reporte_ms.repository.ReporteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
