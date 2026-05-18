@@ -1,6 +1,6 @@
-package com.CodeChefs.deliveryMS.repository;
+package com.CodeChefs.delivery_ms.repository;
 
-import com.deliveryMS.model.delivery;
+import com.CodeChefs.delivery_ms.model.Delivery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
