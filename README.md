@@ -205,16 +205,31 @@ FoodFlow/
 
 ---
 
-## 📊 Estado del Proyecto
+## 📚 Documentación y Pruebas
 
-* ✅ 5 microservicios de Erick completos
-* ⏳ 5 microservicios de Cristofer en desarrollo
-* ✅ Comunicación Feign implementada
-* ✅ DTOs y validaciones
-* ✅ Consultas derivadas JPA
-* ✅ Logs con SLF4J
+### Swagger / OpenAPI
+- **URL Swagger UI:** `http://localhost:8082/swagger-ui/index.html`
+- **Endpoints documentados:**
+    - `GET /api/v1/restaurantes` - Listar restaurantes
+    - `GET /api/v1/restaurantes/{id}` - Buscar por ID
+    - `POST /api/v1/restaurantes` - Crear restaurante
+    - `PUT /api/v1/restaurantes/{id}` - Actualizar restaurante
+    - `DELETE /api/v1/restaurantes/{id}` - Eliminar restaurante
+    - `PATCH /api/v1/restaurantes/{id}/promedio` - Actualizar promedio
 
----
+### Pruebas Unitarias
+- **Framework:** JUnit 5 + Mockito
+- **Clase de prueba:** `RestauranteServiceTest.java`
+- **Casos probados:**
+    - Listar restaurantes
+    - Buscar por ID (existente y no existente)
+    - Crear restaurante válido
+    - Actualizar restaurante existente
+    - Eliminar restaurante (existente y no existente)
+- **Comando para ejecutar:**
+  ```bash
+  cd restaurante-ms
+  mvn test
 
 ## 👨‍💻 Autores
 
