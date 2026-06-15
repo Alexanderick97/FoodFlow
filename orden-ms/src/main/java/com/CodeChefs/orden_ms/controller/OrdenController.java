@@ -3,18 +3,19 @@ package com.CodeChefs.orden_ms.controller;
 
 
 import com.CodeChefs.orden_ms.model.Orden;
-
 import com.CodeChefs.orden_ms.service.OrdenService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 
 import java.util.List;
 
-
+@Tag(
+    name = "Órdenes",
+    description = "Operaciones de gestión de órdenes"
+)
 
 @RestController
 
