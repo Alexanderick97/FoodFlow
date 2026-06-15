@@ -1,25 +1,31 @@
 package com.CodeChefs.menu_ms.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+@Schema(description = "Datos necesarios para crear o actualizar un plato")
 public class MenuRequestDTO {
 
+    @Schema(description = "ID del restaurante al que pertenece el plato", example = "1", required = true)
     @NotNull(message = "El ID del restaurante es obligatorio")
     private int restauranteId;
 
+    @Schema(description = "Nombre del plato", example = "Pizza Margarita", required = true)
     @NotBlank(message = "El nombre del plato es obligatorio")
     @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
     private String nombre;
 
-    @Size(max = 500, message = "La descripción no puede tener más de 500 caracteres")
+    @Schema(description = "Descripción del plato", example = "Tomate, mozzarella, albahaca")
     private String descripcion;
 
+    @Schema(description = "Precio del plato en pesos", example = "8990", required = true)
     @Min(value = 0, message = "El precio debe ser mayor o igual a 0")
     private double precio;
 
+    @Schema(description = "Categoría del plato", example = "PRINCIPAL", allowableValues = {"ENTRADA", "PRINCIPAL", "POSTRE", "BEBIDA"})
     private String categoria;
 
     private String imagenUrl;
