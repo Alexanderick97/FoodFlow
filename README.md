@@ -230,6 +230,20 @@ FoodFlow/
   ```bash
   cd restaurante-ms
   mvn test
+______________________________________
+- **Framework:** JUnit 5 + Mockito
+- **Clase de prueba:** `OrdenServiceTest.java`
+- **Casos probados:**
+    - Guardar una orden
+    - Listar Ordenes
+    - Obtener una orden mediante el ID
+    - retorna null si el ID no existe
+    - Eliminar orden 
+  
+ - **Comando para ejecutar:**
+  ```bash
+  cd orden-ms
+  mvn test
 
 ## 👨‍💻 Autores
 
