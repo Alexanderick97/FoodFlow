@@ -18,19 +18,24 @@ this.deliveryService = deliveryService;
 
 @GetMapping
 public List<Delivery> obtenerDeliveries() {
-return deliveryService.obtenerDeliveries();
+return deliveryService.listar();
 }
 
 @GetMapping("/{id}")
 public Delivery obtenerDeliveryPorId(@PathVariable Long id) {
 
-return deliveryService.obtenerDeliveryPorId(id)
-.orElseThrow(() -> new RuntimeException("Delivery no encontrado"));
+    Delivery delivery = deliveryService.obtener(id);
+
+    if (delivery == null) {
+        throw new RuntimeException("Delivery no encontrado");
+    }
+
+    return delivery;
 }
 
 @PostMapping
 public Delivery crearDelivery(@RequestBody Delivery delivery) {
-return deliveryService.guardarDelivery(delivery);
+return deliveryService.guardar(delivery);
 }
 
 @PutMapping("/{id}/estado")
@@ -42,6 +47,6 @@ return deliveryService.actualizarEstado(id, estadoEntrega);
 
 @DeleteMapping("/{id}")
 public void eliminarDelivery(@PathVariable Long id) {
-deliveryService.eliminarDelivery(id);
+deliveryService.eliminar(id);
 }
 }

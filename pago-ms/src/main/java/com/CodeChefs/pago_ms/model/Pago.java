@@ -8,12 +8,21 @@ public class Pago {
     @id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long idOrden;
     private Double monto;
     private String metodoPago;
     private String estado;
 
     public Long getId(){
         return id;
+    }
+
+    public Long getIdOrden(){
+        return idOrden;
+    }
+
+    public void setIdOrden(Long idOrden){
+        this.idOrden = idOrden;
     }
 
     public Double getMonto(){
