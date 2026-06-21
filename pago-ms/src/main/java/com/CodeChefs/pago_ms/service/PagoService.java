@@ -1,29 +1,52 @@
-package com.CodeChefs.PagoMS.service;
-
-import com.CodeChefs.PagoMS.model.Pago;
-import com.CodeChefs.PagoMS.repository.PagoRepository;
-import org.SpringFramework.beans.factory.annotation.Autowired;
-import org.SpringFramework.stereotype.Service;
+import com.CodeChefs.pago_ms.client.OrdenClient;
+import com.CodeChefs.pago_ms.dto.OrdenResponseDTO;
+import com.CodeChefs.pago_ms.model.Pago;
+import com.CodeChefs.pago_ms.repository.PagoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PagoService{
+public class PagoService {
 
     @Autowired
     private PagoRepository repo;
 
-    public Pago procesarPago (Pago pago){
-        pago.setEstado("APROBADO");
+    @Autowired
+    private OrdenClient ordenClient;
+
+    public List<Pago> listar() {
+        return repo.findAll();
+    }
+
+    public Pago procesarPago(Pago pago) {
+
+        // Consultar la orden en orden-ms
+        OrdenResponseDTO orden =
+                ordenClient.obtenerOrden(pago.getIdOrden());
+
+        // Verificar que exista
+        if (orden == null) {
+            throw new RuntimeException("La orden no existe");
+        }
+
+        // El pago queda asociado a la orden
+        pago.setEstado("PAGADO");
+
         return repo.save(pago);
     }
 
-    public Pago guardar(Pago pago) {
-        pago.setEstado("PENDIENTE");
-        return repo.save(pago);
+    public Pago obtener(Long id) {
+        return repo.findById(id).orElse(null);
     }
 
-    public List<Pago> listar(){
-        return repo.FindAll();
+    public void eliminar(Long id) {
+        repo.deleteById(id);
     }
+
+    public Pago obtenerPorOrden(Long idOrden) {
+    return repo.findByIdOrden(idOrden)
+            .orElse(null);
+}
 }
