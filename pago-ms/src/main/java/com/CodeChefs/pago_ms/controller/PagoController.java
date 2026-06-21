@@ -1,9 +1,9 @@
-package com.CodeChefs.PagoMS.controller;
+package com.CodeChefs.pago_ms.controller;
 
-import com.CodeChefs.PagoMS.model.Pago;
-import com.CodeChefs.PagoMS.service.PagoService;
-import org.SpringFramework.beans.factory.annotation.Autowired;
-import org.SpringFramework.web.bind.annotation.*;
+import com.CodeChefs.pago_ms.model.Pago;
+import com.CodeChefs.pago_ms.service.PagoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class PagoController{
     private PagoService service;
 
     @PostMapping
-    public Pago Pagar (RequestBody Pago pago){
+    public Pago pagar (@RequestBody Pago pago){
         return service.procesarPago(pago);
     }
 
@@ -25,4 +25,11 @@ public class PagoController{
     public List<Pago> listar(){
         return service.listar();
     }
+
+    @GetMapping("/orden/{idOrden}")
+public Pago obtenerPorOrden(
+        @PathVariable Long idOrden) {
+
+    return service.obtenerPorOrden(idOrden);
+}
 }
