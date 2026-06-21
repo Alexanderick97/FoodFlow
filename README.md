@@ -230,7 +230,7 @@ FoodFlow/
   ```bash
   cd restaurante-ms
   mvn test
-______________________________________
+---
 - **Framework:** JUnit 5 + Mockito
 - **Clase de prueba:** `OrdenServiceTest.java`
 - **Casos probados:**
@@ -244,7 +244,7 @@ ______________________________________
   ```bash
   cd orden-ms
   mvn test
-_______________________________________
+---
 - **Framework**: JUnit 5 + Mockito
 - **Clase de prueba:** `PagoServiceTest.java`
 - **Casos probados:**
@@ -255,7 +255,7 @@ _______________________________________
   ```bash
   cd pago-ms
   mvn test
-________________________________________
+---
 - **Framework:** JUnit 5 + Mockito
 - **Clase de prueba:** `DeliveryServiceTest.java`
 - **Casos probados:**
@@ -267,7 +267,7 @@ ________________________________________
   cd delivery-ms
   mvn test
 
-_______________________________________
+---
 
 ### 👨‍💻 Autores
 
