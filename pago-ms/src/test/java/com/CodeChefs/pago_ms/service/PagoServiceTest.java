@@ -35,5 +35,21 @@ public class PagoServiceTest {
 
         assertNotNull(resultado);
     }
+
+    @Test
+    void listar() {
+
+        List<Pago> pagos = List.of(
+                new Pago(),
+                new Pago()
+        );
+
+    when(repo.findAll()).thenReturn(pagos);
+
+    List<Pago> resultado = service.listar();
+
+    assertEquals(2, resultado.size());
+    verify(repo, times(1)).findAll();
+}
     
 }
