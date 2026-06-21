@@ -18,6 +18,11 @@ public class PagoService{
         return repo.save(pago);
     }
 
+    public Pago guardar(Pago pago) {
+        pago.setEstado("PENDIENTE");
+        return repo.save(pago);
+    }
+
     public List<Pago> listar(){
         return repo.FindAll();
     }
