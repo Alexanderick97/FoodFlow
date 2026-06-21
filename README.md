@@ -244,32 +244,41 @@ FoodFlow/
   ```bash
   cd orden-ms
   mvn test
+´´´
 ---
-- **Framework**: JUnit 5 + Mockito
+---
+
+- **Framework:** JUnit 5 + Mockito
 - **Clase de prueba:** `PagoServiceTest.java`
 - **Casos probados:**
-    - Guardar un pago que no sea null
-    - Listar pagos diarios
+  - Guardar un pago que no sea null
+  - Listar pagos diarios
 
- - **Comando para ejecutar:**
-  ```bash
-  cd pago-ms
-  mvn test
+- **Comando para ejecutar:**
+
+```bash
+cd pago-ms
+mvn test
+```
+
 ---
+
 - **Framework:** JUnit 5 + Mockito
 - **Clase de prueba:** `DeliveryServiceTest.java`
 - **Casos probados:**
-    - Guardar deliverys
-    - Actualizar estado del delivery
-  
- - **Comando para ejecutar:**
-  ```bash
-  cd delivery-ms
-  mvn test
+  - Guardar deliverys
+  - Actualizar estado del delivery
+
+- **Comando para ejecutar:**
+
+```bash
+cd delivery-ms
+mvn test
+```
 
 ---
 
 ### 👨‍💻 Autores
 
-* **Erick** - Usuario, Restaurante, Menú, Reserva, Calificación
-* **Cristofer** - Orden, Delivery, Pago, Promoción, Reporte
+- **Erick** - Usuario, Restaurante, Menú, Reserva, Calificación
+- **Cristofer** - Orden, Delivery, Pago, Promoción, Reporte
