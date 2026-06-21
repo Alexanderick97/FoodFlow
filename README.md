@@ -255,9 +255,19 @@ _______________________________________
   ```bash
   cd pago-ms
   mvn test
+________________________________________
+- **Framework:** JUnit 5 + Mockito
+- **Clase de prueba:** `DeliveryServiceTest.java`
+- **Casos probados:**
+    - Guardar deliverys
+    - Actualizar estado del delivery
+  
+ - **Comando para ejecutar:**
+  ```bash
+  cd delivery-ms
+  mvn test
 
-
-
+_______________________________________
 ## 👨‍💻 Autores
 
 * **Erick** - Usuario, Restaurante, Menú, Reserva, Calificación
