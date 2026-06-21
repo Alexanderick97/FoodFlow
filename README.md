@@ -245,12 +245,12 @@ ______________________________________
   cd orden-ms
   mvn test
 _______________________________________
-- **Framework:** JUnit 5 + Mockito
+- **Framework**: JUnit 5 + Mockito
 - **Clase de prueba:** `PagoServiceTest.java`
 - **Casos probados:**
     - Guardar un pago que no sea null
     - Listar pagos diarios
-  
+
  - **Comando para ejecutar:**
   ```bash
   cd pago-ms
@@ -268,7 +268,8 @@ ________________________________________
   mvn test
 
 _______________________________________
-## 👨‍💻 Autores
+
+### 👨‍💻 Autores
 
 * **Erick** - Usuario, Restaurante, Menú, Reserva, Calificación
 * **Cristofer** - Orden, Delivery, Pago, Promoción, Reporte
