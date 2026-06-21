@@ -3,42 +3,62 @@ package com.CodeChefs.delivery_ms.service;
 import com.CodeChefs.delivery_ms.model.Delivery;
 import com.CodeChefs.delivery_ms.repository.DeliveryRepository;
 import org.springframework.stereotype.Service;
+import com.CodeChefs.delivery_ms.client.PagoClient;
+import com.CodeChefs.delivery_ms.dto.PagoResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DeliveryService {
 
-private final DeliveryRepository deliveryRepository;
+    @Autowired
+    private DeliveryRepository repo;
 
-public DeliveryService(DeliveryRepository deliveryRepository) {
-this.deliveryRepository = deliveryRepository;
-}
+    @Autowired
+    private PagoClient pagoClient;
 
-public List<Delivery> obtenerDeliveries() {
-return deliveryRepository.findAll();
-}
+    public Delivery guardar(Delivery delivery) {
 
-public Optional<Delivery> obtenerDeliveryPorId(Long id) {
-return deliveryRepository.findById(id);
-}
+        PagoResponseDTO pago =
+                pagoClient.obtenerPagoPorOrden(
+                        delivery.getIdOrden());
 
-public Delivery guardarDelivery(Delivery delivery) {
-return deliveryRepository.save(delivery);
-}
+        if (pago == null) {
+            throw new RuntimeException(
+                    "La orden aún no ha sido pagada");
+        }
 
-public Delivery actualizarEstado(Long id, String estadoEntrega) {
+        if (!"PAGADO".equals(pago.getEstado())) {
+            throw new RuntimeException(
+                    "El pago aún no está aprobado");
+        }
 
-Delivery delivery = deliveryRepository.findById(id)
-.orElseThrow(() -> new RuntimeException("Delivery no encontrado"));
+        delivery.setEstadoEntrega("EN_PREPARACION");
 
-delivery.setEstadoEntrega(estadoEntrega);
+        return repo.save(delivery);
+    }
 
-return deliveryRepository.save(delivery);
-}
+    public List<Delivery> listar() {
+        return repo.findAll();
+    }
 
-public void eliminarDelivery(Long id) {
-deliveryRepository.deleteById(id);
-}
+    public Delivery obtener(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public void eliminar(Long id) {
+        repo.deleteById(id);
+    }
+
+    public Delivery actualizarEstado(Long id, String estado) {
+
+        Delivery delivery = repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Delivery no encontrado"));
+
+        delivery.setEstadoEntrega(estado);
+
+        return repo.save(delivery);
+    }
 }
