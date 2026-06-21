@@ -1,65 +1,140 @@
-# 🍽️ FoodFlow - Plataforma de Delivery
+# 🍽️ FoodFlow
 
-## 👥 Integrantes
+## Plataforma de Delivery Basada en Microservicios
 
-* **Erick** - Usuario, Restaurante, Menú, Reserva, Calificación
-* **Cristofer** - Orden, Delivery, Pago, Promoción, Reporte
+FoodFlow es una plataforma de pedidos a domicilio que conecta clientes, restaurantes y repartidores mediante una arquitectura de microservicios desarrollada con Spring Boot.
+
+---
+
+## 👥 Equipo de Desarrollo
+
+| Integrante | Responsabilidades                                 |
+| ---------- | ------------------------------------------------- |
+| Erick      | Usuario, Restaurante, Menú, Reserva, Calificación |
+| Cristofer  | Orden, Delivery, Pago, Promoción, Reporte         |
 
 ---
 
 ## 📖 Descripción del Proyecto
 
-**FoodFlow** es una plataforma de pedidos a domicilio que conecta clientes, restaurantes y repartidores. Permite gestionar pedidos en tiempo real, asignar repartidores, procesar pagos y generar reportes de ventas.
+FoodFlow permite gestionar todo el ciclo de vida de un pedido de comida:
+
+* Registro de usuarios.
+* Administración de restaurantes.
+* Gestión de menús.
+* Reservas de mesas.
+* Creación de pedidos.
+* Procesamiento de pagos.
+* Asignación de repartidores.
+* Calificaciones y comentarios.
+* Promociones y descuentos.
+* Generación de reportes.
+
+La plataforma está diseñada bajo una arquitectura de microservicios para facilitar la escalabilidad, mantenibilidad y desacoplamiento de funcionalidades.
 
 ---
 
-## 🗄️ Microservicios (10)
+## 🎯 Objetivo
 
-### 🔹 Microservicios de Erick
-
-| Microservicio   | Puerto | Base de Datos   | Descripción                                          |
-| --------------- | ------ | --------------- | ---------------------------------------------------- |
-| usuario-ms      | 8081   | bd_usuario      | Gestión de usuarios (clientes, repartidores, admins) |
-| restaurante-ms  | 8082   | bd_restaurante  | Gestión de restaurantes                              |
-| menu-ms         | 8083   | bd_menu         | Gestión de platos y menús                            |
-| reserva-ms      | 8084   | bd_reserva      | Reservas de mesas                                    |
-| calificacion-ms | 8085   | bd_calificacion | Calificaciones y comentarios                         |
-
-### 🔹 Microservicios de Cristofer
-
-| Microservicio | Puerto | Base de Datos | Descripción                |
-| ------------- | ------ | ------------- | -------------------------- |
-| orden-ms      | 8086   | bd_orden      | Gestión de pedidos         |
-| delivery-ms   | 8087   | bd_delivery   | Asignación de repartidores |
-| pago-ms       | 8088   | bd_pago       | Procesamiento de pagos     |
-| promocion-ms  | 8089   | bd_promocion  | Cupones y descuentos       |
-| reporte-ms    | 8090   | bd_reporte    | Estadísticas y reportes    |
+Brindar una solución tecnológica que permita a restaurantes administrar sus operaciones digitales mientras los clientes disfrutan de una experiencia simple y eficiente para realizar pedidos y reservas.
 
 ---
 
-## 🔧 Tecnologías Utilizadas
+# 🏗️ Arquitectura del Sistema
 
-* **Java 17**
-* **Spring Boot 4.0.6**
-* **Spring Data JPA / Hibernate**
-* **MySQL**
-* **OpenFeign** (comunicación entre microservicios)
-* **Maven**
-* **Postman** (pruebas de API)
+La solución está compuesta por:
 
----
-
-## 🚀 Cómo Ejecutar el Proyecto
-
-### ✅ Prerrequisitos
-
-* Java 17 instalado
-* MySQL en ejecución
-* Maven instalado (opcional, puedes usar el wrapper `mvnw`)
+* 10 Microservicios de negocio.
+* Eureka Server para descubrimiento de servicios.
+* API Gateway para centralizar las peticiones.
+* Bases de datos independientes por microservicio.
+* Comunicación síncrona mediante OpenFeign.
 
 ---
 
-### 🧩 Paso 1: Crear las bases de datos
+## 🔄 Flujo Principal
+
+### Gestión de Usuarios y Reservas
+
+1. Registro de usuarios.
+2. Registro de restaurantes.
+3. Creación de reservas.
+4. Validación de existencia de usuario y restaurante mediante Feign.
+
+### Gestión de Pedidos y Entregas
+
+1. Creación de pedido.
+2. Procesamiento de pago.
+3. Asignación de repartidor.
+4. Entrega del pedido.
+
+---
+
+# 🗄️ Microservicios
+
+## Microservicios de Erick
+
+| Servicio        | Puerto | Base de Datos   |
+| --------------- | ------ | --------------- |
+| usuario-ms      | 8081   | bd_usuario      |
+| restaurante-ms  | 8082   | bd_restaurante  |
+| menu-ms         | 8083   | bd_menu         |
+| reserva-ms      | 8084   | bd_reserva      |
+| calificacion-ms | 8085   | bd_calificacion |
+
+## Microservicios de Cristofer
+
+| Servicio     | Puerto | Base de Datos |
+| ------------ | ------ | ------------- |
+| orden-ms     | 8086   | bd_orden      |
+| delivery-ms  | 8087   | bd_delivery   |
+| pago-ms      | 8088   | bd_pago       |
+| promocion-ms | 8089   | bd_promocion  |
+| reporte-ms   | 8090   | bd_reporte    |
+
+---
+
+# 🔧 Tecnologías Utilizadas
+
+## Backend
+
+* Java 17
+* Spring Boot
+* Spring Data JPA
+* Hibernate
+* Spring Cloud OpenFeign
+* Spring Cloud Gateway
+* Eureka Server
+
+## Base de Datos
+
+* MySQL
+
+## DevOps
+
+* Docker
+* Docker Compose
+* Maven
+
+## Testing
+
+* Postman
+* JUnit
+
+---
+
+# 🚀 Instalación y Ejecución
+
+## Requisitos Previos
+
+* Java 17
+* Maven
+* MySQL
+* Docker (opcional)
+
+---
+
+## 1️⃣ Crear Bases de Datos
 
 ```sql
 CREATE DATABASE bd_usuario;
@@ -76,74 +151,158 @@ CREATE DATABASE bd_reporte;
 
 ---
 
-### ⚙️ Paso 2: Configurar `application.properties`
-
-En cada microservicio:
+## 2️⃣ Configurar application.properties
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/bd_nombre
 spring.datasource.username=root
 spring.datasource.password=tu_contraseña
+
 server.port=xxxx
 ```
 
 ---
 
-### ▶️ Paso 3: Ejecutar los microservicios
+## 3️⃣ Levantar Eureka Server
 
 ```bash
-# Ejemplo
-cd usuario-ms
+cd eureka-server
 mvn spring-boot:run
+```
 
-# Repetir para cada microservicio
+Acceso:
+
+```text
+http://localhost:8761
 ```
 
 ---
 
-## 📡 Endpoints Principales
+## 4️⃣ Levantar Microservicios
 
-### 🔹 usuario-ms (Puerto 8081)
+Ejemplo:
 
-| Método | Endpoint              | Descripción     |
-| ------ | --------------------- | --------------- |
-| POST   | /api/v1/usuarios      | Crear usuario   |
-| GET    | /api/v1/usuarios      | Listar usuarios |
-| GET    | /api/v1/usuarios/{id} | Buscar por ID   |
+```bash
+cd usuario-ms
+mvn spring-boot:run
+```
 
----
-
-### 🔹 restaurante-ms (Puerto 8082)
-
-| Método | Endpoint             | Descripción         |
-| ------ | -------------------- | ------------------- |
-| POST   | /api/v1/restaurantes | Crear restaurante   |
-| GET    | /api/v1/restaurantes | Listar restaurantes |
+Repetir para cada microservicio.
 
 ---
 
-### 🔹 reserva-ms (Puerto 8084)
+## 5️⃣ Levantar Gateway
 
-| Método | Endpoint         | Descripción                                            |
-| ------ | ---------------- | ------------------------------------------------------ |
-| POST   | /api/v1/reservas | Crear reserva (valida usuario y restaurante vía Feign) |
+```bash
+cd gateway-proxy
+mvn spring-boot:run
+```
+
+Acceso:
+
+```text
+http://localhost:8080
+```
 
 ---
 
-## 🔗 Comunicación entre Microservicios
+# 🌐 API Gateway
 
-* `reserva-ms` → `usuario-ms` (valida que el usuario exista)
-* `reserva-ms` → `restaurante-ms` (valida que el restaurante exista)
-* `orden-ms` → `usuario-ms` y `restaurante-ms` (validaciones)
+Todas las solicitudes pasan por el Gateway.
+
+| Ruta Gateway              | Destino         |
+| ------------------------- | --------------- |
+| /api/v1/usuarios/**       | usuario-ms      |
+| /api/v1/restaurantes/**   | restaurante-ms  |
+| /api/v1/menu/**           | menu-ms         |
+| /api/v1/reservas/**       | reserva-ms      |
+| /api/v1/calificaciones/** | calificacion-ms |
+| /api/v1/ordenes/**        | orden-ms        |
+| /api/v1/deliverys/**      | delivery-ms     |
+| /api/v1/pagos/**          | pago-ms         |
+
+Ejemplo:
+
+```http
+GET http://localhost:8080/api/v1/restaurantes
+```
 
 ---
 
-## 📋 Ejemplos de Peticiones (Postman)
+# 📡 Endpoints Principales
 
-### 👤 Crear Usuario
+## Usuario
+
+### Crear Usuario
+
+```http
+POST /api/v1/usuarios
+```
+
+### Listar Usuarios
+
+```http
+GET /api/v1/usuarios
+```
+
+### Buscar Usuario
+
+```http
+GET /api/v1/usuarios/{id}
+```
+
+---
+
+## Restaurante
+
+### Crear Restaurante
+
+```http
+POST /api/v1/restaurantes
+```
+
+### Listar Restaurantes
+
+```http
+GET /api/v1/restaurantes
+```
+
+---
+
+## Reserva
+
+### Crear Reserva
+
+```http
+POST /api/v1/reservas
+```
+
+Valida existencia de:
+
+* Usuario.
+* Restaurante.
+
+Utilizando OpenFeign.
+
+---
+
+# 🔗 Comunicación Entre Microservicios
+
+| Origen          | Destino        | Propósito           |
+| --------------- | -------------- | ------------------- |
+| reserva-ms      | usuario-ms     | Validar usuario     |
+| reserva-ms      | restaurante-ms | Validar restaurante |
+| calificacion-ms | restaurante-ms | Actualizar promedio |
+| orden-ms        | pago-ms        | Procesar pago       |
+| orden-ms        | delivery-ms    | Asignar repartidor  |
+
+---
+
+# 📋 Ejemplos de Peticiones
+
+## Crear Usuario
 
 ```json
-POST http://localhost:8081/api/v1/usuarios
 {
   "nombre": "Juan Perez",
   "email": "juan@example.com",
@@ -155,10 +314,9 @@ POST http://localhost:8081/api/v1/usuarios
 
 ---
 
-### 🍕 Crear Restaurante
+## Crear Restaurante
 
 ```json
-POST http://localhost:8082/api/v1/restaurantes
 {
   "nombre": "Pizzeria Centro",
   "direccion": "Av. Siempre Viva 123",
@@ -170,10 +328,9 @@ POST http://localhost:8082/api/v1/restaurantes
 
 ---
 
-### 📅 Crear Reserva
+## Crear Reserva
 
 ```json
-POST http://localhost:8084/api/v1/reservas
 {
   "restauranteId": 1,
   "usuarioId": 1,
@@ -186,99 +343,98 @@ POST http://localhost:8084/api/v1/reservas
 
 ---
 
-## 📂 Estructura del Proyecto
+# 📚 Documentación API
+
+Cada microservicio expone Swagger/OpenAPI:
 
 ```text
-FoodFlow/
-├── usuario-ms/
-├── restaurante-ms/
-├── menu-ms/
-├── reserva-ms/
-├── calificacion-ms/
-├── orden-ms/
-├── delivery-ms/
-├── pago-ms/
-├── promocion-ms/
-├── reporte-ms/
+http://localhost:8081/swagger-ui/index.html
+http://localhost:8082/swagger-ui/index.html
+http://localhost:8083/swagger-ui/index.html
+http://localhost:8084/swagger-ui/index.html
+http://localhost:8085/swagger-ui/index.html
+http://localhost:8086/swagger-ui/index.html
+http://localhost:8087/swagger-ui/index.html
+http://localhost:8088/swagger-ui/index.html
+```
+
+---
+
+# 🧪 Pruebas Unitarias
+
+Ejemplo:
+
+```bash
+cd usuario-ms
+mvn test
+```
+
+Resultado esperado:
+
+```text
+BUILD SUCCESS
+```
+
+---
+
+# 🐳 Docker
+
+Levantar todo el ecosistema:
+
+```bash
+docker-compose up --build
+```
+
+Detener servicios:
+
+```bash
+docker-compose down
+```
+
+---
+
+# 📂 Estructura del Proyecto
+
+```text
+FoodFlow
+├── usuario-ms
+├── restaurante-ms
+├── menu-ms
+├── reserva-ms
+├── calificacion-ms
+├── orden-ms
+├── delivery-ms
+├── pago-ms
+├── promocion-ms
+├── reporte-ms
+├── eureka-server
+├── gateway-proxy
+├── docker-compose.yml
 └── README.md
 ```
 
 ---
 
-## 📚 Documentación y Pruebas
+# 👨‍💻 Autores
 
-### Swagger / OpenAPI
-- **URL Swagger UI:** `http://localhost:8082/swagger-ui/index.html`
-- **Endpoints documentados:**
-    - `GET /api/v1/restaurantes` - Listar restaurantes
-    - `GET /api/v1/restaurantes/{id}` - Buscar por ID
-    - `POST /api/v1/restaurantes` - Crear restaurante
-    - `PUT /api/v1/restaurantes/{id}` - Actualizar restaurante
-    - `DELETE /api/v1/restaurantes/{id}` - Eliminar restaurante
-    - `PATCH /api/v1/restaurantes/{id}/promedio` - Actualizar promedio
+### Erick
 
-### Pruebas Unitarias
-- **Framework:** JUnit 5 + Mockito
-- **Clase de prueba:** `RestauranteServiceTest.java`
-- **Casos probados:**
-    - Listar restaurantes
-    - Buscar por ID (existente y no existente)
-    - Crear restaurante válido
-    - Actualizar restaurante existente
-    - Eliminar restaurante (existente y no existente)
-- **Comando para ejecutar:**
-  ```bash
-  cd restaurante-ms
-  mvn test
----
-- **Framework:** JUnit 5 + Mockito
-- **Clase de prueba:** `OrdenServiceTest.java`
-- **Casos probados:**
-    - Guardar una orden
-    - Listar Ordenes
-    - Obtener una orden mediante el ID
-    - retorna null si el ID no existe
-    - Eliminar orden 
-  
- - **Comando para ejecutar:**
-  ```bash
-  cd orden-ms
-  mvn test
-´´´
----
----
+* Usuario
+* Restaurante
+* Menú
+* Reserva
+* Calificación
 
-- **Framework:** JUnit 5 + Mockito
-- **Clase de prueba:** `PagoServiceTest.java`
-- **Casos probados:**
-  - Guardar un pago que no sea null
-  - Listar pagos diarios
+### Cristofer
 
-- **Comando para ejecutar:**
-
-```bash
-cd pago-ms
-mvn test
-```
+* Orden
+* Delivery
+* Pago
+* Promoción
+* Reporte
 
 ---
 
-- **Framework:** JUnit 5 + Mockito
-- **Clase de prueba:** `DeliveryServiceTest.java`
-- **Casos probados:**
-  - Guardar deliverys
-  - Actualizar estado del delivery
+## 📄 Licencia
 
-- **Comando para ejecutar:**
-
-```bash
-cd delivery-ms
-mvn test
-```
-
----
-
-### 👨‍💻 Autores
-
-- **Erick** - Usuario, Restaurante, Menú, Reserva, Calificación
-- **Cristofer** - Orden, Delivery, Pago, Promoción, Reporte
+Proyecto desarrollado con fines académicos para la asignatura de Ingeniería de Software.
