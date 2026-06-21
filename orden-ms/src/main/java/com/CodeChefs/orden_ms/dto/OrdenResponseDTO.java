@@ -52,4 +52,12 @@ public class OrdenResponseDTO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    @FeignClient(name = "orden-ms", url = "http://localhost:8086")
+public interface OrdenClient {
+
+    @GetMapping("/ordenes/{id}")
+    OrdenResponseDTO obtenerOrden(@PathVariable Long id);
+
+}
 }
