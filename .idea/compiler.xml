@@ -13,15 +13,23 @@
         <module name="restaurante-ms (4)" />
         <module name="restaurante-ms (3)" />
         <module name="restaurante-ms (2)" />
+        <module name="gateway-proxy" />
         <module name="restaurante-ms (1)" />
         <module name="restaurante-ms" />
+        <module name="eureka-server" />
         <module name="reserva-ms" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-gateway" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="-parameters" />
       <module name="calificacion-ms" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="gateway-proxy" options="-parameters" />
       <module name="menu-ms" options="-parameters" />
       <module name="reserva-ms" options="-parameters" />
       <module name="restaurante-ms" options="-parameters" />
