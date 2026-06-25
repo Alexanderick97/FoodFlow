@@ -36,7 +36,7 @@ public class DeliveryServiceTest {
         when(repo.save(any(Delivery.class)))
                 .thenAnswer(i -> i.getArgument(0));
 
-        Delivery resultado = service.guardarDelivery(delivery);
+        Delivery resultado = service.guardar(delivery);
 
         assertNotNull(resultado);
     }
