@@ -20,6 +20,10 @@ public class PagoService {
         return repo.findAll();
     }
 
+    public Pago guardarPago(Pago pago) {
+    return repo.save(pago);
+}
+
     public Pago procesarPago(Pago pago) {
 
         // Consultar la orden en orden-ms
