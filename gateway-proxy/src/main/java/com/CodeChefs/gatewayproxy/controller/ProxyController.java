@@ -18,6 +18,11 @@ public class ProxyController {
     private final String menuUrl = getEnv("DESTINO_MENU", "http://localhost:8083");
     private final String reservaUrl = getEnv("DESTINO_RESERVA", "http://localhost:8084");
     private final String calificacionUrl = getEnv("DESTINO_CALIFICACION", "http://localhost:8085");
+    private final String ordenUrl = getEnv("DESTINO_ORDEN", "http://localhost:8086");
+    private final String deliveryUrl = getEnv("DESTINO_DELIVERY", "http://localhost:8087");
+    private final String pagoUrl = getEnv("DESTINO_PAGO", "http://localhost:8088");
+    private final String promocionUrl = getEnv("DESTINO_PROMOCION", "http://localhost:8089");
+    private final String reporteUrl = getEnv("DESTINO_REPORTE", "http://localhost:8090");
 
     private String getEnv(String key, String defaultValue) {
         String value = System.getenv(key);
