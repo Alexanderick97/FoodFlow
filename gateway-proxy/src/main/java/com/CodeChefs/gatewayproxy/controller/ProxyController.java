@@ -54,6 +54,31 @@ public class ProxyController {
         return forwardRequest(calificacionUrl, request);
     }
 
+    @RequestMapping("/ordenes/**")
+    public ResponseEntity<?> proxyOrdenes(HttpServletRequest request) {
+       return forwardRequest(ordenUrl, request);
+   }
+
+   @RequestMapping("/api/delivery/**")
+   public ResponseEntity<?> proxyDelivery(HttpServletRequest request) {
+      return forwardRequest(deliveryUrl, request);
+   }
+
+   @RequestMapping("/pagos/**")
+   public ResponseEntity<?> proxyPagos(HttpServletRequest request) {
+       return forwardRequest(pagoUrl, request);
+   }
+
+   @RequestMapping("/promociones/**")
+   public ResponseEntity<?> proxyPromociones(HttpServletRequest request) {
+       return forwardRequest(promocionUrl, request);
+   }
+
+   @RequestMapping("/reportes/**")
+   public ResponseEntity<?> proxyReportes(HttpServletRequest request) {
+       return forwardRequest(reporteUrl, request);
+   }
+
     private ResponseEntity<?> forwardRequest(String baseUrl, HttpServletRequest request) {
         try {
             String path = request.getRequestURI();
