@@ -74,7 +74,7 @@ public class ProxyController {
        return forwardRequest(promocionUrl, request);
    }
 
-   @RequestMapping("/reportes/**")
+   @RequestMapping("/api/reportes/**")
    public ResponseEntity<?> proxyReportes(HttpServletRequest request) {
        return forwardRequest(reporteUrl, request);
    }
